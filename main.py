@@ -15,6 +15,8 @@ LINE = "I hallucinated an entire API, wrote flawless documentation for it, and o
 def main():
     if not (1 <= len(LINE) <= 200):
         raise ValueError(f"line must be 1-200 characters, got {len(LINE)}")
+    if len(LINE.encode("utf-8")) > 200:
+        raise ValueError("line must be at most 200 bytes (tie-break favours fewer bytes)")
     if "\n" in LINE or LINE.strip() != LINE:
         raise ValueError("line must be a single line with no surrounding whitespace")
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR") or "/output"
